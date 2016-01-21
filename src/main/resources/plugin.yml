@@ -1,0 +1,3 @@
+name: Shop
+version: #{project.version}
+main: tech.spencercolton.shop.Shop
