@@ -1,3 +1,8 @@
 name: Shop
 version: #{project.version}
 main: tech.spencercolton.shop.Shop
+commands:
+  shop:
+    description: Open shop
+  editshop:
+    description: Edit a shop

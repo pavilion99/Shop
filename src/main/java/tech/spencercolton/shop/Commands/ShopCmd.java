@@ -4,6 +4,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import tech.spencercolton.shop.Inventories.ShopInventory;
+import tech.spencercolton.shop.Inventories.ShopInventoryFactory;
+import tech.spencercolton.shop.Shop;
 import tech.spencercolton.shop.Util.AbstractShopCommand;
 
 /**
@@ -20,7 +23,14 @@ public class ShopCmd extends AbstractShopCommand {
 
         Player p = (Player)sender;
 
+        ShopInventory inv = ShopInventoryFactory.getShopInventory("main");
 
+        assert inv != null;
+
+        if(!Shop.immutableInventories.contains(inv.getI()))
+            Shop.immutableInventories.add(inv.getI());
+
+        p.openInventory(inv.getI());
     }
 
 }
