@@ -1,5 +1,6 @@
 package tech.spencercolton.shop.Util;
 
+import org.bukkit.inventory.Inventory;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -56,9 +57,33 @@ public class JSONLoader {
     }
 
     public static void saveNew(String s) {
-        if(Shop.newInventory.get(s) == null)
-            return;
+        try {
+            if (Shop.newInventory.get(s) == null)
+                return;
 
+            File f = new File(Shop.getDf(), s + ".json");
+            FileWriter g = new FileWriter(f);
+
+            JSONObject o = get(s);
+
+            if (o == null)
+                return;
+
+            o.put("name", s);
+
+            Inventory e = Shop.newInventory.get(s).getI();
+
+            Map<Integer, Map<String, Object>> items = new HashMap<>();
+
+            for(int i = 0; i < e.getSize(); i++)
+                items.put(i, e.getItem(i).serialize());
+
+            o.put("items", items);
+
+            g.write(o.toString());
+        } catch(IOException|ParseException|InventoryParseException e) {
+            return;
+        }
 
     }
 
